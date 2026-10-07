@@ -10,6 +10,8 @@ for hf in html_files:
     path = os.path.join(base, hf)
     with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
+    # <base> (used by 404.html) points at the site root, not at a file
+    content = re.sub(r'<base\b[^>]*>', '', content)
 
     srcs = re.findall(r'src=["\']([^"\']+)["\']', content)
     hrefs = re.findall(r'href=["\']([^"\']+)["\']', content)

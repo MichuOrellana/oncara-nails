@@ -19,6 +19,7 @@
   --gold: #C2A06B;
   --gold-light: #DFC493;
   --gold-dark: #967645;
+  --gold-ink: #7A5C2E; /* gold text on light backgrounds (4.5:1+) */
   --gold-gradient: linear-gradient(135deg, #DFC493 0%, #C2A06B 50%, #967645 100%);
   --gold-glow: 0 0 15px rgba(194, 160, 107, 0.35);
   
@@ -26,7 +27,7 @@
   --text-cream: #E9E2D2;
   --text-gold: #C2A06B;
   --text-muted: #8E8A80;
-  --text-muted-dark: #6C685F;
+  --text-muted-dark: #5E5A51;
   
   --border-gold: rgba(194, 160, 107, 0.45);
   --border-gold-subtle: rgba(194, 160, 107, 0.22);
@@ -675,7 +676,7 @@ button, input, select, textarea {
   font-family: var(--font-caps);
   font-size: 0.78rem;
   letter-spacing: 0.25em;
-  color: var(--gold-dark);
+  color: var(--gold-ink);
   margin-bottom: 0.6rem;
   text-transform: uppercase;
 }
@@ -874,7 +875,7 @@ button, input, select, textarea {
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--gold-dark);
+  color: var(--gold-ink);
   letter-spacing: 0.05em;
   margin-bottom: 1.2rem;
 }
@@ -1037,6 +1038,153 @@ button, input, select, textarea {
 
 .newsletter-btn:hover {
   background: #E8D1A8;
+}
+
+/* Quiz "Descubrí tu set salvaje" */
+.section-quiz {
+  background: radial-gradient(circle at 50% 0%, var(--bg-dark-accent) 0%, var(--bg-dark) 70%);
+  padding: 5rem 1.5rem;
+  border-top: 1px solid var(--border-gold-subtle);
+}
+
+.quiz-box {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quiz-kicker,
+.quiz-progress {
+  display: block;
+  font-family: var(--font-caps);
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+
+.quiz-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--gold-light);
+}
+
+.quiz-intro {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--text-cream);
+  margin-bottom: 2.5rem;
+}
+
+.quiz-stage {
+  background: rgba(28, 28, 21, 0.7);
+  border: 1px solid var(--border-gold-subtle);
+  border-radius: var(--radius-md);
+  padding: 2.5rem 2rem;
+}
+
+.quiz-question {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-cream);
+  margin-bottom: 1.8rem;
+}
+
+.quiz-question:focus {
+  outline: none;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.quiz-option {
+  min-height: 56px;
+  padding: 14px 18px;
+  background: transparent;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-sm);
+  color: var(--text-cream);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.quiz-option:hover {
+  border-color: var(--gold);
+  background: rgba(194, 160, 107, 0.12);
+  color: var(--gold-light);
+}
+
+.quiz-result {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  align-items: center;
+  text-align: left;
+}
+
+.quiz-result img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-gold);
+}
+
+.quiz-result .quiz-question {
+  margin-bottom: 0.75rem;
+  color: var(--gold-light);
+}
+
+.quiz-result-desc {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text-cream);
+  margin-bottom: 0.75rem;
+}
+
+.quiz-result-price {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.quiz-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .quiz-stage {
+    padding: 1.8rem 1.1rem;
+  }
+
+  .quiz-options,
+  .quiz-result {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-result {
+    text-align: center;
+  }
+
+  .quiz-result img {
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .quiz-result-actions {
+    justify-content: center;
+  }
 }
 
 .social-follow {
@@ -1936,7 +2084,7 @@ button, input, select, textarea {
   text-align: center;
   font-family: var(--font-serif);
   font-size: 0.95rem;
-  color: #6E685C;
+  color: var(--text-muted-dark);
   line-height: 1.5;
 }
 
@@ -2528,7 +2676,7 @@ button, input, select, textarea {
   font-family: var(--font-sans);
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--gold-dark);
+  color: var(--gold-ink);
   margin-bottom: 1.4rem;
 }
 

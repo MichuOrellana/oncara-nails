@@ -11,7 +11,115 @@ document.addEventListener('DOMContentLoaded', () => {
   initCollectionFilter();
   initPersonalizadosForm();
   initMedidasSelector();
+  initQuiz();
 });
+
+// Quiz "Descubrí tu set salvaje" (index). Set data is read from the collection cards on the page.
+function initQuiz() {
+  const stage = document.querySelector('.quiz-stage');
+  if (!stage) return;
+
+  const titles = { salvaje: 'SALVAJE', oraculo: 'ORÁCULO', ocaso: 'OCASO', hechizo: 'HECHIZO' };
+  const questions = [
+    {
+      q: '¿Cuál es tu vibe?',
+      options: [
+        ['Audaz y magnética', 'salvaje'],
+        ['Mística y soñadora', 'oraculo'],
+        ['Intensa y sofisticada', 'ocaso'],
+        ['Romántica y delicada', 'hechizo'],
+      ],
+    },
+    {
+      q: '¿Qué colores predominan en tu placard?',
+      options: [
+        ['Animal print y tonos tierra', 'salvaje'],
+        ['Negro, verde oliva y dorado', 'oraculo'],
+        ['Bordó, vino y tonos profundos', 'ocaso'],
+        ['Nude, blanco y perla', 'hechizo'],
+      ],
+    },
+    {
+      q: '¿Para qué ocasión las querés?',
+      options: [
+        ['Una salida para robar miradas', 'salvaje'],
+        ['Un ritual o una fecha con significado', 'oraculo'],
+        ['Una cena o evento elegante de noche', 'ocaso'],
+        ['Una boda, un cumple o un evento de día', 'hechizo'],
+      ],
+    },
+  ];
+
+  let answers = [];
+
+  function setData(key) {
+    const card = Array.from(document.querySelectorAll('.collection-card'))
+      .find(c => c.querySelector('.card-title')?.textContent.trim() === titles[key]);
+    if (!card) return null;
+    return {
+      name: 'Set ' + titles[key].charAt(0) + titles[key].slice(1).toLowerCase(),
+      img: card.querySelector('img').getAttribute('src'),
+      desc: card.querySelector('.card-desc').textContent.trim(),
+      price: card.querySelector('.card-price').textContent.trim(),
+    };
+  }
+
+  function focusHeading() {
+    const heading = stage.querySelector('[tabindex="-1"]');
+    if (heading) heading.focus({ preventScroll: true });
+  }
+
+  function renderQuestion(i) {
+    const { q, options } = questions[i];
+    stage.innerHTML = `
+      <p class="quiz-progress">PREGUNTA ${i + 1} DE ${questions.length}</p>
+      <h3 class="quiz-question" tabindex="-1">${q}</h3>
+      <div class="quiz-options">
+        ${options.map(([label, key]) => `<button type="button" class="quiz-option" data-key="${key}">${label}</button>`).join('')}
+      </div>`;
+    stage.querySelectorAll('.quiz-option').forEach(btn => btn.addEventListener('click', () => {
+      answers.push(btn.dataset.key);
+      if (answers.length < questions.length) renderQuestion(answers.length);
+      else renderResult();
+      focusHeading();
+    }));
+  }
+
+  function renderResult() {
+    const scores = {};
+    answers.forEach(k => { scores[k] = (scores[k] || 0) + 1; });
+    const best = Math.max(...Object.values(scores));
+    // On a tie, the occasion (last answer) decides
+    const key = scores[answers[answers.length - 1]] === best
+      ? answers[answers.length - 1]
+      : Object.keys(scores).find(k => scores[k] === best);
+    const set = setData(key);
+    if (!set) return;
+
+    stage.innerHTML = `
+      <div class="quiz-result">
+        <img src="${set.img}" alt="${set.name}" width="1024" height="1024">
+        <div class="quiz-result-info">
+          <p class="quiz-progress">TU SET ES</p>
+          <h3 class="quiz-question" tabindex="-1">${set.name.toUpperCase()}</h3>
+          <p class="quiz-result-desc">${set.desc}</p>
+          <p class="quiz-result-price">${set.price}</p>
+          <div class="quiz-result-actions">
+            <button type="button" class="btn btn-gold quiz-add">AGREGAR A MI BOLSA</button>
+            <button type="button" class="btn btn-outline-gold quiz-restart">VOLVER A EMPEZAR</button>
+          </div>
+        </div>
+      </div>`;
+    stage.querySelector('.quiz-add').addEventListener('click', () => addToCart(set.name, set.price, set.img));
+    stage.querySelector('.quiz-restart').addEventListener('click', () => {
+      answers = [];
+      renderQuestion(0);
+      focusHeading();
+    });
+  }
+
+  renderQuestion(0);
+}
 
 // Toast notification
 function showToast(message) {
