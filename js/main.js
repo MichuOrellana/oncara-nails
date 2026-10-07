@@ -114,7 +114,6 @@ window.addToCart = function(name, price, img) {
   cart.push({ name, price, img });
   localStorage.setItem('oncara_cart', JSON.stringify(cart));
   updateCartUI();
-  showToast(`✦ ${name} agregado a tu selección`);
   openCart();
 };
 
