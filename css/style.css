@@ -3,7 +3,7 @@
    Enhanced Stylesheet & Luxury Framing System
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+SC:wght@400;500;600;700&family=Marcellus&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Marcellus&family=Montserrat:wght@300;400;500;600&display=swap');
 
 :root {
   --bg-dark: #151510;
@@ -32,9 +32,9 @@
   --border-gold-subtle: rgba(194, 160, 107, 0.22);
   --border-cream: rgba(233, 226, 210, 0.2);
   
-  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-heading: 'Marcellus', 'Cinzel', serif;
-  --font-caps: 'Cinzel', 'Cormorant SC', serif;
+  --font-caps: 'Cinzel', Georgia, serif;
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
   
   --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
@@ -860,7 +860,7 @@ button, input, select, textarea {
 
 .card-desc {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--text-muted-dark);
   line-height: 1.4;
   margin-bottom: 1rem;
@@ -1036,19 +1036,11 @@ button, input, select, textarea {
   background: #E8D1A8;
 }
 
-@media (max-width: 480px) {
-  .newsletter-form {
-    flex-direction: column;
-  }
-
-  .newsletter-input {
-    min-width: 0;
-    text-align: center;
-  }
-
-  .newsletter-btn {
-    padding: 14px 24px;
-  }
+.social-follow {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .social-links {
@@ -1510,7 +1502,7 @@ button, input, select, textarea {
 
 .step-desc {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.5;
   color: #555047;
 }
@@ -1988,7 +1980,7 @@ button, input, select, textarea {
   max-width: 1350px;
   margin: 0 auto 4.5rem;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1.8rem;
   text-align: left;
 }
@@ -2002,6 +1994,13 @@ button, input, select, textarea {
   flex-direction: column;
   transition: var(--transition);
 }
+
+/* Main guides first (antes, durante, retiro), then the two duration tips */
+.cuidados-5cols-grid .care-col:nth-child(1) { grid-column: span 2; order: 1; }
+.cuidados-5cols-grid .care-col:nth-child(2) { grid-column: span 2; order: 2; }
+.cuidados-5cols-grid .care-col:nth-child(4) { grid-column: span 2; order: 3; }
+.cuidados-5cols-grid .care-col:nth-child(3) { grid-column: span 3; order: 4; }
+.cuidados-5cols-grid .care-col:nth-child(5) { grid-column: span 3; order: 5; }
 
 .care-col:hover {
   border-color: var(--gold);
@@ -2037,7 +2036,7 @@ button, input, select, textarea {
 .care-list {
   list-style: none;
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.55;
   color: #D3CDC1;
   display: flex;
@@ -2060,7 +2059,7 @@ button, input, select, textarea {
 .care-ordered-list {
   list-style: none;
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.55;
   color: #D3CDC1;
   display: flex;
@@ -2086,7 +2085,7 @@ button, input, select, textarea {
 
 .care-prose {
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1.6;
   color: #D3CDC1;
 }
@@ -2321,7 +2320,7 @@ button, input, select, textarea {
 
 .channel-info p {
   font-family: var(--font-serif);
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #9E988C;
 }
 
@@ -2492,7 +2491,7 @@ button, input, select, textarea {
 
 .item-desc {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 1.08rem;
   color: var(--text-muted-dark);
   margin-bottom: 1.2rem;
   line-height: 1.5;
@@ -2949,6 +2948,14 @@ button, input, select, textarea {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .cuidados-5cols-grid .care-col:nth-child(n) {
+    grid-column: auto;
+  }
+
+  .cuidados-5cols-grid .care-col:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
   .pillars-grid {
     grid-template-columns: 1fr;
   }
@@ -3005,7 +3012,7 @@ button, input, select, textarea {
     padding: 2.8rem 1.25rem;
   }
 
-  .collections-grid, .tienda-catalog-grid, .cuidados-5cols-grid, .olive-features-grid, .values-grid, .recorda-badges-grid {
+  .collections-grid, .tienda-catalog-grid, .cuidados-5cols-grid {
     grid-template-columns: 1fr;
   }
 
