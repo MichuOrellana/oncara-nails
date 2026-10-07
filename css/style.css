@@ -51,9 +51,11 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
   font-size: 16px;
   background-color: var(--bg-dark);
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 
@@ -63,6 +65,7 @@ body {
   background-color: var(--bg-dark);
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   max-width: 100vw;
   position: relative;
@@ -2829,6 +2832,45 @@ button, input, select, textarea {
   transform: translateY(100px);
   opacity: 0;
   transition: var(--transition);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 900;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background-color: rgba(21, 21, 16, 0.92);
+  color: var(--gold);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: var(--transition);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--gold);
+  color: var(--bg-dark);
+  box-shadow: var(--gold-glow);
+}
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
 }
 
 .toast-notice.show {

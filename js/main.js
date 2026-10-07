@@ -33,12 +33,26 @@ function initHeader() {
   const header = document.querySelector('.main-header');
   if (!header) return;
 
+  const backToTop = document.createElement('button');
+  backToTop.className = 'back-to-top';
+  backToTop.setAttribute('aria-label', 'Volver arriba');
+  backToTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0 }));
+  document.body.appendChild(backToTop);
+
+  // On the home page the logo scrolls back up instead of reloading
+  const logo = document.querySelector('.brand-center-badge');
+  const onHome = /(\/|index\.html)$/.test(location.pathname);
+  if (logo && onHome) {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0 });
+    });
+  }
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
+    header.classList.toggle('scrolled', window.scrollY > 40);
+    backToTop.classList.toggle('visible', window.scrollY > 600);
   });
 }
 
