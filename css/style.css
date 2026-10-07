@@ -244,6 +244,9 @@ button, input, select, textarea {
   color: var(--gold);
   cursor: pointer;
   padding: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  margin: -8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -286,6 +289,10 @@ button, input, select, textarea {
   border: none;
   cursor: pointer;
   padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 5px;
 }
@@ -306,6 +313,7 @@ button, input, select, textarea {
   width: 85%;
   max-width: 360px;
   height: 100vh;
+  height: 100dvh;
   background-color: var(--bg-dark);
   border-left: 1px solid var(--border-gold);
   padding: 2.5rem 1.8rem;
@@ -337,6 +345,8 @@ button, input, select, textarea {
   color: var(--gold);
   font-size: 1.8rem;
   cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .mobile-nav-links {
@@ -2575,6 +2585,7 @@ button, input, select, textarea {
   width: 90%;
   max-width: 420px;
   height: 100vh;
+  height: 100dvh;
   background-color: #171711;
   border-left: 1px solid var(--border-gold);
   z-index: 2001;
@@ -2609,6 +2620,8 @@ button, input, select, textarea {
   color: var(--gold);
   font-size: 1.8rem;
   cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .cart-items-body {
@@ -3034,5 +3047,51 @@ button, input, select, textarea {
     padding: 11px 18px;
     font-size: 0.74rem;
     letter-spacing: 0.12em;
+  }
+}
+
+
+/* Accessibility: skip link, keyboard focus, reduced motion */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 3000;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: var(--bg-dark);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -45,7 +45,11 @@ async def run_tests():
                 if overflow and scroll_w > inner_w + 1:
                     errors.append(f"[{page_name} @ {vp['name']}] Horizontal overflow: scrollWidth={scroll_w} > innerWidth={inner_w}")
                 
-                # Check broken images
+                # Check broken images (force lazy images to load first)
+                await page.evaluate("""() => Promise.all(Array.from(document.querySelectorAll('img[loading=lazy]')).map(img => {
+                    img.loading = 'eager';
+                    return img.complete ? null : new Promise(r => { img.onload = img.onerror = r; });
+                }))""")
                 broken_imgs = await page.evaluate("""() => {
                     const imgs = Array.from(document.querySelectorAll('img'));
                     return imgs.filter(img => !img.complete || img.naturalWidth === 0).map(img => img.src);
