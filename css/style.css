@@ -38,7 +38,9 @@
   --font-caps: 'Cinzel', Georgia, serif;
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
   
-  --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --transition: color 0.3s var(--ease-out), background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out), visibility 0.3s var(--ease-out), filter 0.3s var(--ease-out);
   --radius-sm: 4px;
   --radius-md: 8px;
 }
@@ -322,24 +324,19 @@ button, input, select, textarea {
   border-left: 1px solid var(--border-gold);
   padding: 2.5rem 1.8rem;
   z-index: 1001;
-  display: none;
+  display: flex;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.22s var(--ease-drawer), visibility 0s linear 0.22s;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: -10px 0 30px rgba(0,0,0,0.8);
 }
 
 .mobile-nav.open {
-  display: flex;
-  animation: slideDrawer 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-@keyframes slideDrawer {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s var(--ease-drawer), visibility 0s;
 }
 
 .mobile-nav-close {
@@ -648,7 +645,7 @@ button, input, select, textarea {
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.8s ease;
+  transition: transform 0.45s var(--ease-out);
 }
 
 .hero-right-dark:hover .hero-photo-hand {
@@ -719,7 +716,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .ornate-mirror-frame:hover .ornate-mirror-img {
@@ -756,7 +753,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .brand-banner-side-img:hover img {
@@ -846,7 +843,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .collection-card:hover .card-img-wrapper img {
@@ -1473,7 +1470,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .pillar-card:hover .pillar-image-wrap img {
@@ -1850,7 +1847,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .medidas-right-image:hover img {
@@ -2448,7 +2445,7 @@ button, input, select, textarea {
   height: 20px;
 }
 
-.channel-info h4 {
+.channel-info h3 {
   font-family: var(--font-caps);
   font-size: 0.88rem;
   letter-spacing: 0.16em;
@@ -2624,7 +2621,7 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .tienda-item-card:hover .tienda-img-box img {
@@ -2804,14 +2801,18 @@ button, input, select, textarea {
   background-color: #171711;
   border-left: 1px solid var(--border-gold);
   z-index: 2001;
-  display: none;
+  display: flex;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.22s var(--ease-drawer), visibility 0s linear 0.22s;
   flex-direction: column;
   box-shadow: -15px 0 40px rgba(0, 0, 0, 0.8);
 }
 
 .cart-drawer.open {
-  display: flex;
-  animation: slideDrawer 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s var(--ease-drawer), visibility 0s;
 }
 
 .cart-drawer-header {
@@ -3313,6 +3314,49 @@ button, input, select, textarea {
 }
 
 
+
+/* Press feedback: pressable elements shrink slightly while pressed */
+.btn,
+.icon-btn,
+.quiz-option,
+.back-to-top,
+.filter-btn,
+.mobile-menu-btn {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active,
+.icon-btn:active,
+.quiz-option:active,
+.back-to-top:active,
+.filter-btn:active,
+.mobile-menu-btn:active {
+  transform: scale(0.97);
+  transition-duration: 0.12s;
+}
+
+/* Touch screens: no hover lift/zoom left stuck after a tap */
+@media (hover: none) {
+  .brand-center-badge:hover,
+  .icon-btn:hover,
+  .btn-gold:hover,
+  .hero-right-dark:hover .hero-photo-hand,
+  .ornate-mirror-frame:hover .ornate-mirror-img,
+  .brand-banner-side-img:hover img,
+  .collection-card:hover,
+  .collection-card:hover .card-img-wrapper img,
+  .olive-feature-item:hover .olive-icon-circle,
+  .social-link:hover,
+  .pillar-card:hover .pillar-image-wrap img,
+  .step-card:hover,
+  .medidas-right-image:hover img,
+  .care-col:hover,
+  .contact-channel-item:hover,
+  .tienda-item-card:hover,
+  .tienda-item-card:hover .tienda-img-box img {
+    transform: none;
+  }
+}
 /* Accessibility: skip link, keyboard focus, reduced motion */
 .skip-link {
   position: absolute;
