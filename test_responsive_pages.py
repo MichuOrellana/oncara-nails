@@ -8,7 +8,8 @@ PAGES = [
     "personalizados.html",
     "sobre-oncara.html",
     "cuidados.html",
-    "contacto.html"
+    "contacto.html",
+    "revista.html"
 ]
 
 VIEWPORTS = [
@@ -70,7 +71,7 @@ async def run_tests():
                 print("  -", e)
             sys.exit(1)
         else:
-            print("ALL 6 PAGES PASSED RESPONSIVE & IMAGE AUDITS AT ALL VIEWPORTS (0 overflows, 0 broken images, 0 console errors)!")
+            print(f"ALL {len(PAGES)} PAGES PASSED RESPONSIVE & IMAGE AUDITS AT ALL VIEWPORTS (0 overflows, 0 broken images, 0 console errors)!")
 
 if __name__ == "__main__":
     asyncio.run(run_tests())
